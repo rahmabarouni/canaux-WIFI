@@ -10,4 +10,5 @@
 int greedy_seq(const Graph *g, const int *order, int *color);
 // Memes entrees que greedy_seq. Retourne nb couleurs. Parallelise l examen des voisins.
 int greedy_omp(const Graph *g, const int *order, int *color);
+int greedy_spec(const Graph *g, int *color);   /* glouton parallele "speculatif" */
 #endif

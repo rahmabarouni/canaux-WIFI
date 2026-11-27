@@ -116,7 +116,7 @@ static void solve_par(const Graph *g, int K, int *color, const int *order,
         }
     }
     #pragma omp taskwait   /* attend la fin des taches enfants (different de la protection des acces) */
-        // taskwait attend les enfants, mais ne protege pas les donnees partagees
+    // taskwait attend les enfants, mais ne protege pas les donnees partagees
 }
 
 // Recoit graphe, K et color. Retourne 1 si K suffisent. Un seul thread lance la racine.

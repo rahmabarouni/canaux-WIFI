@@ -9,10 +9,10 @@
 int greedy_seq(const Graph *g, const int *order, int *color) {
     int n = g->n;
     for (int i = 0; i < n; i++) color[i] = -1;       // -1 = pas colorié
-        // -1 ya3ni pas encore colorie
+    // -1 ya3ni pas encore colorie
 
     int *forbidden = malloc((n + 1) * sizeof(int));
-        // forbidden[c]=1 ya3ni couleur c mawjouda 3and un voisin, donc mamnou3a
+    // forbidden[c]=1 ya3ni couleur c mawjouda 3and un voisin, donc mamnou3a
 
     for (int i = 0; i < n; i++) {
         int v = order ? order[i] : i;

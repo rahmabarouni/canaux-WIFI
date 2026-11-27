@@ -9,35 +9,39 @@
 #include "greedy.h"
 #include "backtracking.h"
 
-#define REPS 3
+static int REPS = 3;
 
 // Recoit argv: fichier graphe, nb threads, csv optionnel, fichier Gantt optionnel. Retourne 0. Lance les 4 algorithmes.
 int main(int argc, char **argv) {
-    setvbuf(stdout, NULL, _IONBF, 0);   // affichage direct, utile si on coupe apres timeout
+    setvbuf(stdout, NULL, _IONBF, 0);   // affichage direct, khater ila wa9af l timeout nchouf l resultat qbel ma ykhtafi (darija tunisienne)
+    { const char *e = getenv("REPS"); if (e) REPS = atoi(e); }
+    int skip_bt = (getenv("SKIP_BT") != NULL);   /* SKIP_BT mawjouda: nnezzel le backtracking, khater l graphe kbir w l temps kaytwal bezzaf (darija tunisienne) */
     if (argc < 2) { printf("Usage: %s fichier_graphe [threads] [csv]\n", argv[0]); return 1; }
     Graph *g = graph_load(argv[1]);
     if (!g) return 1;
     int threads = (argc >= 3) ? atoi(argv[2]) : 1;
-    int csv = (argc >= 4);   // si 4e arg present, on affiche une ligne csv
-    omp_set_num_threads(threads);   // nombre de threads demande par l utilisateur
+    int csv = (argc >= 4);   // ila 4e arg mawjouda, nketb ligne csv, khater script l bench yqraha (darija tunisienne)
+    omp_set_num_threads(threads);   // n3mel l threads kif ma talab l utilisateur, khater l ouvrage kaytqassam 3lihom (darija tunisienne)
     int *color = malloc(g->n * sizeof(int));
     double t, ts_g = 0, tp_g = 0, ts_b = 0, tp_b = 0;
     int kg = 0, kgp = 0, chi = 0, chip = 0, ok = 1;
 
-    for (int r = 0; r < REPS; r++) {   // on repete REPS fois et on fait la moyenne
+    for (int r = 0; r < REPS; r++) {   // n3awed REPS fois w nkhod l moyenne, khater l wa7id kaytbelbel b l charge mta3 l machine (darija tunisienne)
         t = omp_get_wtime(); kg = greedy_seq(g, NULL, color);
         ts_g += omp_get_wtime() - t; ok &= is_valid_coloring(g, color);
 
         t = omp_get_wtime(); kgp = greedy_omp(g, NULL, color);
         tp_g += omp_get_wtime() - t; ok &= is_valid_coloring(g, color);
 
-        t = omp_get_wtime(); chi = chromatic_seq(g, color);
-        ts_b += omp_get_wtime() - t; ok &= is_valid_coloring(g, color);
+        if (!skip_bt) {
+            t = omp_get_wtime(); chi = chromatic_seq(g, color);
+            ts_b += omp_get_wtime() - t; ok &= is_valid_coloring(g, color);
 
-        t = omp_get_wtime(); chip = chromatic_omp(g, color);
-        tp_b += omp_get_wtime() - t; ok &= is_valid_coloring(g, color);
+            t = omp_get_wtime(); chip = chromatic_omp(g, color);
+            tp_b += omp_get_wtime() - t; ok &= is_valid_coloring(g, color);
+        }
     }
-    if (argc >= 5) gantt_dump(argv[4]);   // 5e arg = ou ecrire le journal Gantt
+    if (argc >= 5) gantt_dump(argv[4]);   // 5e arg = feyn nekteb l journal Gantt, khater nchouf kif l taches t.qassmet 3la l threads (darija tunisienne)
     ts_g /= REPS; tp_g /= REPS; ts_b /= REPS; tp_b /= REPS;
 
     if (csv) {
@@ -49,7 +53,7 @@ int main(int argc, char **argv) {
         printf("[Glouton omp] couleurs=%d temps=%.6fs (%d threads)\n", kgp, tp_g, threads);
         printf("[Backtr. seq] chi=%d temps=%.6fs\n", chi, ts_b);
         printf("[Backtr. omp] chi=%d temps=%.6fs (%d threads)\n", chip, tp_b, threads);
-        printf("Tous colorings valides: %d | chi seq == chi omp: %d\n", ok, chi == chip);   // seq et omp doivent donner le meme chi
+        printf("Tous colorings valides: %d | chi seq == chi omp: %d\n", ok, chi == chip);   // seq w omp lazem ya3tiw l chi nafsou, khater chi constante mta3 l graphe (darija tunisienne)
     }
     free(color); graph_free(g);
     return 0;

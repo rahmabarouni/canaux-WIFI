@@ -1,0 +1,8 @@
+fichier,n,chi,naif_s,ameliore_s
+data/example5.txt,5,3,0.000000,0.000000
+data/app_graph.txt,9,3,0.000000,0.000000
+data/random/s12.txt,12,5,0.001000,0.000000
+data/random/s16.txt,16,4,0.000000,0.000000
+data/random/s20.txt,20,5,0.038000,0.000000
+data/random/s24.txt,24,6,8.118000,0.000000
+data/random/g30.txt,30,5,TIMEOUT>60,0.000000

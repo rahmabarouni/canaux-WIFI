@@ -1,0 +1,4 @@
+*.o
+*.exe
+results/tmp*.txt
+results/scan.csv
