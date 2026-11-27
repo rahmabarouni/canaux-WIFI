@@ -30,7 +30,7 @@ plt.savefig("results/plots/temps_threads.png", dpi=150)
 plt.figure()
 for g in graphs:
     rs = rows_of(g)
-    ts = float(rs[0]["bt_seq"])
+    ts = sum(float(r["bt_seq"]) for r in rs) / len(rs)
     if ts < 0.01: continue   # trop petit pour etre significatif
     # si c est trop petit, le speedup ne veut rien dire
     p = [int(r["threads"]) for r in rs]
@@ -43,7 +43,7 @@ plt.savefig("results/plots/speedup.png", dpi=150)
 plt.figure()
 for g in graphs:
     rs = rows_of(g)
-    ts = float(rs[0]["bt_seq"])
+    ts = sum(float(r["bt_seq"]) for r in rs) / len(rs)
     if ts < 0.01: continue
     p = [int(r["threads"]) for r in rs]
     e = [ts / float(r["bt_omp"]) / int(r["threads"]) for r in rs]
