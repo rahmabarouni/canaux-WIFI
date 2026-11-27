@@ -12,7 +12,7 @@ Projet ISIMa - Complexite algorithmique / Calcul parallele. Application: affecta
 ## Compilation et execution (Windows)
 mingw32-make
 .\coloring.exe data/app_graph.txt 4        (fichier, nombre de threads)
-Variables d'environnement: REPS (repetitions), CUTOFF (profondeur de creation des taches), SKIP_BT=1 (saute le backtracking).
+Variables d'environnement: REPS (repetitions), CUTOFF (profondeur de creation des taches, 12 par defaut), SKIP_BT=1 (saute le backtracking).
 
 ## Format d'un graphe
 Premiere ligne: n m. Puis m lignes: u v (une arete).

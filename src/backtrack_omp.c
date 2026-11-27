@@ -14,7 +14,7 @@ typedef struct { int thread, K; double start, end; } TaskLog;
 static TaskLog glog[GCAP];
 static int gcount = 0;
 static double gt0 = 0;
-static int cutoff = 8;   /* profondeur max de creation de taches (variable d'env CUTOFF) */
+static int cutoff = 12;   /* profondeur max de creation de taches (variable d'env CUTOFF) */
     // cutoff = profondeur max avant de continuer en seq, on change avec CUTOFF
 
 // Ne recoit rien. Ne retourne rien. Remet le compteur de taches a zero.
@@ -123,7 +123,7 @@ static void solve_par(const Graph *g, int K, int *color, const int *order,
 int colorable_omp(const Graph *g, int K, int *color) {
     int found = 0;   // found=1 ya3ni on a deja trouve un coloriage
     const char *e = getenv("CUTOFF");
-    cutoff = e ? atoi(e) : 8;   // on peut changer cutoff avec la variable CUTOFF
+    cutoff = e ? atoi(e) : 12;   // on peut changer cutoff avec la variable CUTOFF
     int *order = malloc(g->n * sizeof(int));
     int *init = malloc(g->n * sizeof(int));
     compute_order(g, order);
