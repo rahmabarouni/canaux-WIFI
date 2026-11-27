@@ -1,14 +1,16 @@
-# Graphes aléatoires
+# Graphes aleatoires
 
-Ce dossier contient les graphes générés par `scripts/gen_graph.py` (modèle $G(n,p)$).
+Les graphes de ce dossier sont des graphes geometriques (modele Wi-Fi): n points tires au hasard dans un carre unite, une arete entre deux points si leur distance est inferieure a un rayon.
 
-Exemple :
+Generation:
+python scripts/gen_graph.py n rayon seed sortie.txt
+Exemple: python scripts/gen_graph.py 120 0.12 1 data/random/g120.txt
+Meme seed = meme graphe (reproductible).
 
-```bash
-python3 scripts/gen_graph.py -n 12 -p 0.35 -s 7 -o data/random/g12_p35_s7.txt
-python3 scripts/gen_graph.py -n 16 -p 0.25 -s 11 -o data/random/g16_p25_s11.txt
-python3 scripts/gen_graph.py -n 20 -p 0.20 -s 23 -o data/random/g20_p20_s23.txt
-```
+Familles de fichiers:
+- g30, g60, g120, g150, g200, g250, g300 : graphes de tailles croissantes (g120 sert au benchmark principal)
+- s12, s16, s20, s24 : petits graphes pour comparer backtracking naif et ameliore
+- c_<n>_<rayon>_<seed> : candidats du scan des graphes difficiles (scripts/find_hard.ps1)
+- big2000, big4000, big6000 : grands graphes pour le glouton (lancer avec SKIP_BT=1)
 
-Le nom de fichier encode : nombre de sommets `n`, probabilité `p` et graine `seed`.
-`run_bench.sh` parcourt automatiquement tous les fichiers `.txt` présents ici.
+Format: premiere ligne "n m", puis m lignes "u v" (sommets numerotes de 0 a n-1).

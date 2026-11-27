@@ -2,3 +2,4 @@
 *.exe
 results/tmp*.txt
 results/scan.csv
+DOCUMENTATION_FICHIERS.md

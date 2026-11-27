@@ -14,6 +14,11 @@ mingw32-make
 .\coloring.exe data/app_graph.txt 4        (fichier, nombre de threads)
 Variables d'environnement: REPS (repetitions), CUTOFF (profondeur de creation des taches, 12 par defaut), SKIP_BT=1 (saute le backtracking).
 
+## Executables de test
+gcc -O2 -fopenmp -Iinclude tests/main_naive.c report/backtrack_seq_naive.c src/graph.c -o naive.exe
+gcc -O2 -fopenmp -Iinclude tests/main_spec.c src/graph.c src/greedy_seq.c src/greedy_omp.c src/greedy_spec.c -o spec.exe
+.\spec.exe data/random/big4000.txt 4        (glouton: seq, omp naif, speculatif)
+
 ## Format d'un graphe
 Premiere ligne: n m. Puis m lignes: u v (une arete).
 
